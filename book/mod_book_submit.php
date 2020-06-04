@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+    <p><a href="http://localhost/library.php?acc=3"><--Go back</a></p>
     <?php 
         //conecting to database
         $servername = "localhost";

@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add book</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+    <p><a href="http://localhost/library.php?acc=3"><--Go back</a></p>
     <?php
         //conecting to database
         $servername = "localhost";
@@ -16,7 +18,8 @@
             die("Connection failed: " . $conn->connect_error); 
         }
         //End of conecting to database
-        $tabla = "<form action='/add_book_submit.php' method='post' id='form1'><br> ";
+        $tabla = "<div>";
+        $tabla .= "<form action='add_book_submit.php' method='post' id='form1'><br> ";
         $tabla .= "<label for='title'>Title:</label>";
         $tabla .= "<input type=text name='title'><br>";
         $tabla .= "<label for='dewey_code'>Dewey code:</label>";
@@ -27,6 +30,7 @@
         $tabla .= "<input type=text name='availability'><br>";
         $tabla .= "</form>";
         $tabla .= "<button type='submit' form='form1' value='submit'>Submit</button>";
+        $tabla .= "</div>";
         echo $tabla;
     ?>
     

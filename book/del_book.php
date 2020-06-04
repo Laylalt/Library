@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+
     <?php //conecting to database
         $servername = "localhost";
         $username = "root";
@@ -17,7 +19,7 @@
     ?>
     
     <!--js with alert to make sure-->
-
+    <p><a href="http://localhost/library.php?acc=3"><--Go back</a></p>
     <?php //Deleting the book 
         if(isset($_GET["i"])){
             $isbn = $_GET["i"];
