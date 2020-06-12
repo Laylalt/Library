@@ -4,20 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add book</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
     <p><a href="http://localhost/library.php?acc=3"><--Go back</a></p>
     <?php
-        //conecting to database
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $conn = new mysqli($servername, $username, $password, "library");
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error); 
-        }
-        //End of conecting to database
+
+    require_once('../../func.php');
+    $x = check();
+    if(isset($x) && $x == 0){
+        head();
+        $print = "<p><a href='http://localhost/admin/library_admin.php?acc=3'><--Go back</a></p>";
+        echo $print;
         $tabla = "<div>";
         $tabla .= "<form action='add_book_submit.php' method='post' id='form1'><br> ";
         $tabla .= "<label for='title'>Title:</label>";
@@ -32,7 +30,11 @@
         $tabla .= "<button type='submit' form='form1' value='submit'>Submit</button>";
         $tabla .= "</div>";
         echo $tabla;
-    ?>
+    }else{ ?>
+        <p>you don't have authorization to acces this page, please <a href="http://localhost/">log in</a></p> 
+<?php
+    }
+?>
     
 </body>
 </html>

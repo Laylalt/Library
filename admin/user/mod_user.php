@@ -3,21 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../../style.css">
     <title>Document</title>
 </head>
 <body>
-<p><a href="http://localhost/library.php?acc=1"><--Go back</a></p>
     <?php //conecting to database
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $conn = new mysqli($servername, $username, $password, "library");
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error); 
-        }
-    ?>
-    <?php
+    require_once('../../func.php');
+    $x = check();
+    if(isset($x) && $x == 0){
+        $conn = connect();
+        head();
+        $print = "<p><a href='http://localhost/admin/library_admin.php?acc=1'><--Go back</a></p>";
+        echo $print;
+        //------------------------------------------------------------------------------------------------------------
         if(isset($_GET["i"])){
             $id = $_GET["i"];
             $sql = "SELECT * FROM students WHERE id_students = $id";
@@ -43,16 +41,26 @@
                 $tabla .= "<option value=1 >active</option>";
                 $tabla .= "<option value=0 >inactive</option>";
                 $tabla .="</select>";
+                $tabla .= "<label for='type'>type:</label>";
+                $tabla .= "<select name='type'>";
+                $tabla .= "<option value=1 >Student</option>";
+                $tabla .= "<option value=0 >Admin</option>";
+                $tabla .="</select>";
                 $tabla .= "</form>";
                 $tabla .= "<button type='submit' form='form1' value='submit'>Submit</button>";
                 $tabla .= "</div>";
                 echo $tabla;
                 $conn->close();   
-        } else{
-            echo "0 results";
+            } else{
+                echo "0 results";
+            }
         }
+    }else{
+?>
+        <p>you don't have authorization to acces this page, please <a href="http://localhost/">log in</a></p> 
+<?php
     }
-    ?>
+?>
 
 </body>
 </html>
