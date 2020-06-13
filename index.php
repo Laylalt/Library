@@ -46,7 +46,7 @@
                         $_SESSION["email"] =  $row["email"];
                         $_SESSION["password"] =  $row["password_user"];
                         $_SESSION["active"] =  $row["active"];
-                        $_SESSION["type"] =  $row["type"];         
+                        $_SESSION["type"] =  $row["type"];     
                         //check type and send to new page 
                         if($row["type"] == 0){
                             ob_clean();

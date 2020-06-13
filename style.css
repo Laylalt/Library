@@ -1,30 +1,37 @@
 table {
-    border: 2px;
-    border-collapse: collapse;
-    width: 100%;
-    
+  border: 2px black;
+  width: 100%;   
 }
   
 th, td {
-    padding: 8px;
-    text-align: center;
+  padding: 8px;
+  text-align: center;
 }
-  
-tr:nth-child(odd){
-    background-color: #f2f2f2;
-    text-align: center;
 
+th{
+  background-color: cornflowerblue;
+  text-decoration: none;
+}
+
+tr:nth-child(odd){
+  background-color: #f2f2f2;
+  text-align: center;
+
+}
+
+.ed{
+  background-color: white;
 }
 
 input[type=password], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 
   input[type=text], select {
     width: 100%;
@@ -58,9 +65,25 @@ input[type=password], select {
     padding: 20px;
   }
 
+
 div.H{
-  background-color:darkseagreen;
+  background-color: rgb(20, 20, 41);
   padding: 20px;
+  width: 100%;
+  color: white;
+  border-radius: 0px;
+  
+}
+a.H{
+  color: white;
+  text-decoration: none;
 }
 
+a.H:hover{
+  background-color: darkslategray;
+}
+
+body{
+  margin: 0;
+}
 

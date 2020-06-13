@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
-    <p><a href="http://localhost/library.php?acc=3"><--Go back</a></p>
     <?php
 
     require_once('../../func.php');

@@ -35,14 +35,14 @@
         if(isset($_SESSION["first_name"])){
             $print = "<div class='H'>";
             if($_SESSION["type"] == 0){
-                $print .= "<a href='http://localhost/admin/main_admin.php'>HOME</a>";
-                $print .= "<p class='H'>Hi " . $_SESSION["first_name"] . "</p>";
-                $print .= "<a class='H' href='http://localhost/admin/library_admin.php?acc=4'> Fees()  |</a>";
+                $print .= "<a class='H' href='http://localhost/admin/main_admin.php'>HOME</a>";
+                $print .= "<p class='H'>Hi " . $_SESSION["first_name"] . "!</p>";
+                $print .= "<a class='H' href='loan-fee/add_loan.php'>Add loan </a><a class='H' href='loan-fee/return_loan.php'>| Return loan</a><br>";
+                $print .= "<a class='H' href='http://localhost/admin/library_admin.php?acc=4'> Fees() |</a>";
                 $print .= "<a class='H' href='http://localhost/admin/library_admin.php?acc=2'> Loans  |</a>";
                 $print .= "<a class='H' href='http://localhost/admin/library_admin.php?acc=1'> Users  |</a>";
                 $print .= "<a class='H' href='http://localhost/admin/library_admin.php?acc=3'> Books  |</a>";
-                $print .= "<p class='H'><a class='H' href='../func.php?acc=0'>Log Off  |</a>";
-                $print .="</p>";
+                $print .= "<a class='H' href='../func.php?acc=0'>Log Off  |</a>";
                 $print .= "</div>";
             echo $print;
             }else{
