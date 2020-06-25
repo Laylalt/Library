@@ -15,8 +15,9 @@
 <body>
     <?php
         head();
+        $conn = connect();
+        top_main($conn);
     ?>
-   <p>img logo and stats of top 10 books, top 10 students, and current borrowed books</p>
 </body>
 </html>
 <?php

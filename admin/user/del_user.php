@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../style.css">
     <title>Document</title>
 </head>
 <body>
@@ -16,9 +17,9 @@
             echo $print;
             if(isset($_GET["i"])){
                 $id = $_GET["i"];
-                $sql = "DELETE FROM students WHERE id_students = $id";
+                $sql = "UPDATE students SET active = 0 WHERE id_students = $id;";
                 if ($conn->query($sql) === TRUE) {
-                    echo "student deleted succesfully";
+                    echo "<div class = 'W'>student deleted succesfully</div>";
                 } else {
                     echo "Error deleting record" . $conn->error;
                 }

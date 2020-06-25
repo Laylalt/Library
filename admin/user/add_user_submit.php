@@ -26,14 +26,14 @@
                 $type = $_POST["type"];
                 $sql = "INSERT INTO students (first_name, last_name, phone_number, email, password_user, active, type) VALUES('$first_name','$last_name','$phone_number','$email', '$password_user', $active, $type)";
                 if($conn->query($sql) === TRUE){
-                    echo "New student added";
+                    echo "<div class = 'W'>New student added</div>";
                     $sql = "SELECT * FROM students ORDER BY id_students DESC LIMIT 1";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                             $row = $result->fetch_assoc();
                             $tabla = "<table>";
-                            $tabla .= "<tr><td>id</td><td>First Name</td><td>Last name</td><td>phone_number</td>";
-                            $tabla .= "<td>email</td><td>status</td><td>Type</td></tr>";
+                            $tabla .= "<tr><th>id</th><th>First Name</th><th>Last name</th><th>phone_number</th>";
+                            $tabla .= "<th>email</th><th>status</th><th>Type</th></tr>";
                             $tabla .= "<tr>";
                             $tabla .= "<td>" . $row["id_students"] . "</td>";
                             $tabla .= "<td>" . $row["first_name"] . "</td>";

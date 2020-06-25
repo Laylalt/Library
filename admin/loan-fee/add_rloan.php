@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../style.css">
-    <title>Add loan</title>
+    <title>Document</title>
 </head>
 <body>
 <?php
@@ -38,27 +38,14 @@
                                 $date_paid = strtotime($row["date_paid"]);
                                 $days = ($today - $date_paid)/60/60/24;
                                 if($days >= 7){
-                                    $availability = $availability - 1;
-                                    $sql = "UPDATE books SET availability = $availability WHERE id_isbn = $id_isbn;";
-                                    if($conn->query($sql) == TRUE){
-                                        return 1;
-                                    }else{
-                                        echo "error updating data, please try again later";
-                                        return 0;
-                                    }
+                                    return 1;
                                 }else{
-                                    echo "<div class = 'W'>were sorry but this user had a fee less than 7 days ago, please wait before borrowing other book</div>";
+                                    echo "were sorry but this user had a fee less than 7 days ago, please wait before borrowing other book";
                                     return 0;
                                 }
 
                             }else{
-                                $availability = $availability - 1;
-                                $sql = "UPDATE books SET availability = $availability WHERE id_isbn = $id_isbn;";
-                                if($conn->query($sql) == TRUE){
-                                    return 1;
-                                }else{
-                                    return 0;
-                                }
+                                return 1;
                             }
                             
                         }else{
@@ -82,42 +69,58 @@
             return 0;    
         }
     }
-?>
+?>  
 <?php
-    $x = check();
-    if(isset($x) && $x == 0){
-        head();
-        echo "<p><a href='http://localhost/admin/library_admin.php?acc=2'><--Go back</a></p>";
-        $conn = connect();
-        $tabla = "<div>";
-        $tabla .= "<form action='' method='post' id='form1'><br> ";
-        $tabla .= "<label for='id_students'>Id student:</label>";
-        $tabla .= "<input type=text name='id_students'><br>";
-        $tabla .= "<label for='id_isbn'>ISBN:</label>";
-        $tabla .= "<input type=text name='id_isbn'><br>";
-        $tabla .= "</form>";
-        $tabla .= "<button type='submit' form='form1' value='submit' name='sbmt'>Submit</button>";
-        //$tabla .= "<button><a href='http://localhost/admin/library_admin.php?acc=2'>cancel</a></button>";
-        $tabla .= "</div>";
-        echo $tabla;
-        //get requested values
-        if(isset($_REQUEST["sbmt"])){
-            $id_students = $_POST["id_students"];
-            $id_isbn = $_POST["id_isbn"];
+$x = check();
+if(isset($x) && $x == 0){
+    head();
+    $conn = connect();
+    if (isset($_GET["i"])){
+        $id_loan = $_GET["i"];
+        $sql = "SELECT id_students, id_isbn FROM loans WHERE id_loan = $id_loan;";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0){
+            $row = $result->fetch_assoc();
+            $id_students = $row["id_students"];
+            $id_isbn = $row["id_isbn"];
             $v = validation($id_students, $id_isbn, $conn);
             if($v == 1){
-                //go to submit
-                $send = $id_students . "-" . $id_isbn;
-                ob_clean();
-                header("Location: http://localhost/admin/loan-fee/add_loan_submit.php?acc=". $send);
-                $conn->close();
-                exit();
-            }  
-            $conn->close();   
+                $id_admin_out = $_SESSION["id"];
+                $date_out = date("Y-m-d");
+                $date_sin = date('Y-m-d', strtotime("+7 days"));
+                $sql = "UPDATE loans SET id_admin_out = $id_admin_out, date_out = '$date_out', date_sin = '$date_sin', active = 1 WHERE id_loan = $id_loan;";
+                if($conn->query($sql) === TRUE){
+                    echo "<div class = 'W'>New loan added</div>";
+                    $sql = "SELECT id_students, id_isbn, id_admin_out, date_out, date_sin FROM loans ORDER BY date_out DESC LIMIT 1";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0){
+                        $tabla = "<table>";
+                        $tabla .= "<tr><th>Borrow date</th><th>Return date</th><th>Id student</th>";
+                        $tabla .= "<th>ISBN</th><th>Id admn</th></tr>";//header row
+                        $row = $result->fetch_assoc();
+                        $tabla .= "<tr>";
+                        $tabla .= "<td>" . $row["date_out"] . "</td>";
+                        $tabla .= "<td>" . $row["date_sin"] . "</td>";
+                        $tabla .= "<td>" . $row["id_students"] . "</td>";
+                        $tabla .= "<td>" . $row["id_isbn"] . "</td>";
+                        $tabla .= "<td>" . $row["id_admin_out"] . "</td>";
+                        $tabla .= "</tr>";
+                        $tabla .= "</table>";
+                        echo $tabla;
+                    }
+                }else{
+                    echo "error";
+                }
+            }
+        }else{
+            echo "error, please contact the website administrator";
         }
     }else{
-        echo "<p>you don't have authorization to acces this page, please <a href='http://localhost/'>log in</a></p>";
+        echo "what are you doing?";
     }
-?>    
+}else{
+    echo "<p>you don't have authorization to acces this page, please <a href='http://localhost/'>log in</a></p>";
+}
+?>
 </body>
 </html>

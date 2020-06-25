@@ -18,30 +18,16 @@
         //-----------------------------------------------------------------------------------------------
         if(isset($_GET["i"])){
                 $isbn = $_GET["i"];
-                $sql = "DELETE FROM relationba WHERE id_isbn = $isbn";
+                $sql = "UPDATE books SET copy_number = 0 WHERE id_isbn = $isbn;";
                 if ($conn->query($sql) === TRUE) {
-                    $sql = "DELETE FROM relationbg WHERE id_isbn = $isbn";
-                    if ($conn->query($sql) === TRUE) {
-                        $sql = "DELETE FROM relationbp WHERE id_isbn = $isbn";
-                        if($conn->query($sql) === TRUE){
-                            $sql = "DELETE FROM books WHERE id_isbn = $isbn";
-                            if($conn->query($sql) === TRUE){
-                                echo "Book deleted from database";
-                            } else{
-                                echo "Error deleting in table books" . $conn->error;     
-                            }
-                        } else{
-                            echo "Error deleting in table BP" . $conn->error;    
-                        }
-                    } else{
-                        echo "Error deleting in table BG" . $conn->error;
-                    }
-                } else {
-                    echo "Error deleting record in table BA " . $conn->error;
+                    echo "<div class = 'W'>Book deleted succesfully</div>";
+                }else{
+                    echo "error";
                 }
-                
-                $conn->close();
-            }//end of if(issset(GET))
+                $conn->close();    
+            }
+            
+            //end of if(issset(GET))
         }else{?>
             <p>you don't have authorization to acces this page, please <a href="http://localhost/">log in</a></p> 
 <?php

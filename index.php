@@ -10,10 +10,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p>CUCEA Library</p>
+    <div class = 'H'>
+        <p>CUCEA Library</p>
+    </div>
+    <?php
+        require_once('func.php');
+        
+    ?>
     <?php
         //conecting to database
-        require_once('func.php');
         $conn = connect();
         //End of conecting to database
         $tabla = "<div>";
@@ -46,9 +51,12 @@
                         $_SESSION["email"] =  $row["email"];
                         $_SESSION["password"] =  $row["password_user"];
                         $_SESSION["active"] =  $row["active"];
-                        $_SESSION["type"] =  $row["type"];     
+                        $_SESSION["type"] =  $row["type"];  
+                        $_SESSION["phone"] = $row["phone_number"];
+                           
                         //check type and send to new page 
                         if($row["type"] == 0){
+                            $_SESSION["fees"] = 0;
                             ob_clean();
                             header("Location: http://localhost/admin/main_admin.php");//send user to this page (user is admin cus type = 0)
                             $conn->close();

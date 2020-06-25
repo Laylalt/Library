@@ -42,14 +42,14 @@
                                     $sql = "UPDATE students SET type = '$type' WHERE id_students = $id";
                                     if($conn->query($sql) === TRUE){
                                     //------------------------------------------------------------------------
-                                    echo "student updated to";
+                                    echo "<div class = 'W'>student updated to</div>";
                                     $sql = "SELECT * FROM students WHERE id_students = $id";
                                     $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {
                                             $row = $result->fetch_assoc();
                                             $tabla = "<table>";
-                                            $tabla .= "<tr><td>id</td><td>First Name</td><td>Last name</td><td>phone_number</td>";
-                                            $tabla .= "<td>email</td><td>status</td><td>Type</td></tr>";
+                                            $tabla .= "<tr><th>id</th><th>First Name</th><th>Last name</th><th>phone_number</th>";
+                                            $tabla .= "<th>email</th><th>status</th><th>Type</th></tr>";
                                             $tabla .= "<tr>";
                                             $tabla .= "<td>" . $row["id_students"] . "</td>";
                                             $tabla .= "<td>" . $row["first_name"] . "</td>";

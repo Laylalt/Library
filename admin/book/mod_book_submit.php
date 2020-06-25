@@ -30,10 +30,10 @@
                         if($conn->query($sql) === TRUE){
                             $sql = "UPDATE books SET availability = '$availability' WHERE id_isbn = $isbn";
                             if($conn->query($sql) === TRUE){
-                                echo "Book updated to:";
+                                echo "<div class = 'W's>Book updated </div>";
                                 $tabla = "<table>";
-                                $tabla .= "<tr><td>ISBN</td><td>Title</td><td>Dewey Code</td>";
-                                $tabla .= "<td>Number of copies</td><td>Available copies</td></tr>";
+                                $tabla .= "<tr><th>ISBN</th><th>Title</th><th>Dewey Code</th>";
+                                $tabla .= "<th>Number of copies</th><th>Available copies</th></th>";
                                 $tabla .= "<tr>";
                                 $tabla .= "<td>" . $isbn  . "</td>";
                                 $tabla .= "<td>" . $title . "</td>";
