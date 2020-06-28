@@ -18,7 +18,7 @@
         $last_name = $_SESSION["last_name"];
         $email = $_SESSION["email"];
         $phone = $_SESSION["phone"];
-        $tabla = "<div>";
+        $tabla = "<div class = 'F'>";
         $tabla .= "<form action='' method='post' id='form1'><br> ";
         $tabla .= "<label for='first_name'>First name:</label>";
         $tabla .= "<input type=text name='first_name' value =" . $first_name . "><br>";
@@ -31,12 +31,37 @@
         $tabla .= "</form>";
         $tabla .= "<button type='submit' form='form1' value='submit' name='c_p'>Apply</button>";
         $tabla .= "</div>";
-        echo $tabla;
         if(isset($_REQUEST["c_p"])){
             $first_name = $_POST["first_name"];
             $last_name = $_POST["last_name"];
             $email = $_POST["email"];
             $phone = $_POST["phone"];
+            //check email 
+            $sql = "SELECT email FROM students WHERE active = 1 AND id_students != $id;";
+            $result = $conn->query($sql);
+            $a_email = array();
+            while($row = $result->fetch_assoc()){
+                array_push($a_email, $row["email"]);
+            }
+            for($x = 0; $x < count($a_email); $x++){
+                if($a_email[$x] == $email){
+                    $tabla = "<div class = 'F'>";
+                    $tabla .= "<form action='' method='post' id='form1'><br> ";
+                    $tabla .= "<label for='first_name'>First name:</label>";
+                    $tabla .= "<input type=text name='first_name' value =" . $first_name . "><br>";
+                    $tabla .= "<label for='last_name'>Last name:</label>";
+                    $tabla .= "<input type=text name='last_name' value =" . $last_name . "><br>";
+                    $tabla .= "<label for='phone'>Phone Number:</label>";
+                    $tabla .= "<input type=text name='phone' value =" . $phone ."><br>";
+                    $tabla .= "<label for='email'>E-mail:</label>";
+                    $tabla .= "<input type=text name='email' value =" . $email . "><br>";
+                    $tabla .= "<div class = 'HW'>This email is already registred, try another one</div>";
+                    $tabla .= "</form>";
+                    $tabla .= "<button type='submit' form='form1' value='submit' name='c_p'>Apply</button>";
+                    $tabla .= "</div>";
+                    echo $tabla;
+                }
+            }
             $sql = "UPDATE students SET first_name = '$first_name', last_name = '$last_name', email = '$email', phone_number = '$phone'   WHERE id_students = $id;";
             if($conn->query($sql) === TRUE){
                 $_SESSION["first_name"] =  $first_name;
@@ -49,6 +74,8 @@
             }else{
                 echo "Error updating information";
             }
+        }else{
+            echo $tabla;
         }
     }else{
         echo "<p>you don't have authorization to acces this page, please <a href='http://localhost/'>log in</a></p> ";

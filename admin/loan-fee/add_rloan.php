@@ -22,9 +22,17 @@
                 if ($row["availability"] > 1){
                     $availability = $row["availability"];
                     //how many books this person has borrowed (3)
-                    $sql = "SELECT active FROM loans WHERE id_students = $id_students AND active = 1;";
+                    $sql = "SELECT active, id_isbn FROM loans WHERE id_students = $id_students AND active = 1;";
                     $result = $conn->query($sql);
                     if($result->num_rows <= 1){
+                        //check id_isbn of active fee(3.1)
+                        if($result->num_rows == 1){
+                            $row = $result->fetch_assoc();
+                            if($row["id_isbn"] == $id_isbn){
+                                echo "<div class = 'W'>were sorry but this user has that book already, please borrow a different book</div>";
+                                return 0;
+                            }
+                        }
                         //if student has an unpaid fee (4)
                         $sql = "SELECT active FROM fees WHERE id_students = $id_students AND active = 1;";
                         $result = $conn->query($sql);
@@ -91,7 +99,7 @@ if(isset($x) && $x == 0){
                 $sql = "UPDATE loans SET id_admin_out = $id_admin_out, date_out = '$date_out', date_sin = '$date_sin', active = 1 WHERE id_loan = $id_loan;";
                 if($conn->query($sql) === TRUE){
                     echo "<div class = 'W'>New loan added</div>";
-                    $sql = "SELECT id_students, id_isbn, id_admin_out, date_out, date_sin FROM loans ORDER BY date_out DESC LIMIT 1";
+                    $sql = "SELECT id_students, id_isbn, id_admin_out, date_out, date_sin FROM loans WHERE id_loan = $id_loan;";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0){
                         $tabla = "<table>";

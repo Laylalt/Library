@@ -24,6 +24,21 @@
                 $password_user = $_POST["password_user"];
                 $active = 1;
                 $type = $_POST["type"];
+                //check email 
+                $sql = "SELECT email FROM students WHERE active = 1;";
+                $result = $conn->query($sql);
+                $a_email = array();
+                while($row = $result->fetch_assoc()){
+                    array_push($a_email, $row["email"]);
+                }
+                for($x = 0; $x < count($a_email); $x++){
+                    if($a_email[$x] == $email){
+                        ob_clean();
+                        header("Location: http://localhost/admin/user/add_user.php?acc=1");
+                        $conn->close();
+                        exit();
+                    }
+                }
                 $sql = "INSERT INTO students (first_name, last_name, phone_number, email, password_user, active, type) VALUES('$first_name','$last_name','$phone_number','$email', '$password_user', $active, $type)";
                 if($conn->query($sql) === TRUE){
                     echo "<div class = 'W'>New student added</div>";

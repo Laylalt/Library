@@ -9,10 +9,11 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body  style="background-image: url('/img/main.jpg');">
     <div class = 'H'>
-        <p>CUCEA Library</p>
+        <img src="/img/logo.png"   height="150px"> 
     </div>
+    <div class = "back">
     <?php
         require_once('func.php');
         
@@ -21,7 +22,8 @@
         //conecting to database
         $conn = connect();
         //End of conecting to database
-        $tabla = "<div>";
+        $tabla = "<div class = 'F'>";
+        $tabla .= "<h3>Log in</h3>";
         $tabla .= "<form action='' method='post' id='form1'><br> ";
         $tabla .= "<label for='email'>E-mail:</label>";
         $tabla .= "<input type=text name='email'><br>";
@@ -30,8 +32,6 @@
         $tabla .= "</form>";
         $tabla .= "<button type='submit' form='form1' value='submit' name='sbmt'>Submit</button>";
         $tabla .= "</div>";
-        echo $tabla;
-    
         //get submited values
         if(isset($_REQUEST["sbmt"])){
             $email = $_POST["email"];
@@ -68,19 +68,49 @@
                             exit();
                         }
                     }else{//inactive stautss
-                        $print = "<div><p>you are no longer part of CUCEA so you cannot have access to the library :(</p></div>";
-                        echo $print;
+                        $tabla = "<div class = 'F'>";
+                        $tabla .= "<form action='' method='post' id='form1'><br> ";
+                        $tabla .= "<label for='email'>E-mail:</label>";
+                        $tabla .= "<input type=text name='email'><br>";
+                        $tabla .= "<label for='password'>Password:</label>";
+                        $tabla .= "<input type=password name='password'><br>";
+                        $tabla .= "<div class = 'HW'>you are no longer part of CUCEA so you cannot have access to the library :(</div>";
+                        $tabla .= "</form>";
+                        $tabla .= "<button type='submit' form='form1' value='submit' name='sbmt'>Submit</button>";
+                        $tabla .= "</div>";
+                        echo $tabla;
                     }
                 }else{//incorrect password
-                    $print = "<div><p>INCORRECT password</p></div>";
-                    echo $print;
+                    $tabla = "<div class = 'F'>";
+                    $tabla .= "<form action='' method='post' id='form1'><br> ";
+                    $tabla .= "<label for='email'>E-mail:</label>";
+                    $tabla .= "<input type=text name='email'><br>";
+                    $tabla .= "<label for='password'>Password:</label>";
+                    $tabla .= "<input type=password name='password'><br>";
+                    $tabla .= "<div class = 'HW'>Incorrect password</div>";
+                    $tabla .= "</form>";
+                    $tabla .= "<button type='submit' form='form1' value='submit' name='sbmt'>Submit</button>";
+                    $tabla .= "</div>";
+                    echo $tabla;
                 }
                 $conn->close();
             }else{//no email found in database
-                $print = "<div><p>INCORRECT USER</p></div>";
-                echo $print;
+                $tabla = "<div class = 'F'>";
+                $tabla .= "<form action='' method='post' id='form1'><br> ";
+                $tabla .= "<label for='email'>E-mail:</label>";
+                $tabla .= "<input type=text name='email'><br>";
+                $tabla .= "<div class = 'HW'>User not found</div>";
+                $tabla .= "<label for='password'>Password:</label>";
+                $tabla .= "<input type=password name='password'><br>";
+                $tabla .= "</form>";
+                $tabla .= "<button type='submit' form='form1' value='submit' name='sbmt'>Submit</button>";
+                $tabla .= "</div>";
+                echo $tabla;
             }
+        }else{
+            echo $tabla;
         }
     ?>
+    </div>
 </body>
 </html>

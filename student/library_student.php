@@ -22,10 +22,10 @@
         while($row = $result->fetch_assoc()){
             array_push($array_isbn, $row["id_isbn"]);
         }
-        $tabla = "<table>";
+        $tabla = "<table class = 'BS'>";
         $tabla .= "<tr><th>ISBN</th><th>Title</th><th>Dewey Code</th>";
         $tabla .= "<th>Author</th><th>Publisher</th><th>Genre</th>";
-        $tabla .= "<th>Available copies</th><td class='ed'></td></tr>";
+        $tabla .= "<th>Available copies</th><th></th></td></tr>";
         for($x = 0; $x < count($array_isbn); $x++){
             $sql = "SELECT * FROM books WHERE id_isbn = $array_isbn[$x];";
             $result = $conn->query($sql);
@@ -76,9 +76,11 @@
             $tabla .= "<td>" . $publisher . "</td>";
             $tabla .= "<td>" . $genre . "</td>"; 
             if($availability >= 2){
-                $tabla .= "<td>" . $availability . "</td>";
                 if($v == 1){
+                    $tabla .= "<td>" . $availability . "</td>";
                     $tabla .= "<td><a href='http://localhost/student/s_add_loan.php?i=" . $id . "'>Select</a></td>";
+                }else{
+                    $tabla .= "<td colspan = '2'>" . $availability . "</td>";
                 }
             }else{
                 $tabla .= "<td>No copies available at the moment</td>";
@@ -109,7 +111,7 @@
             echo $tabla;
 
         }else{
-            echo "<div class = 'W'>You have not borrowed a book from our library</div>";
+            echo "<div class = 'W'>You have not returned any books yet!</div>";
         }
     }
     function hfees($conn){
@@ -236,11 +238,11 @@
 
     function rbooks($conn){
         $id = $_SESSION["id"];
-        $sql = "SELECT books.id_isbn, books.title, loans.id_loan FROM books JOIN loans ON books.id_isbn = loans.id_isbn WHERE id_students = 11 AND active = 0 AND id_admin_out = 0";
+        $sql = "SELECT books.id_isbn, books.title, loans.id_loan FROM books JOIN loans ON books.id_isbn = loans.id_isbn WHERE id_students = $id AND active = 0 AND id_admin_out = 0;";
         $result = $conn->query($sql);
         if ($result->num_rows > 0){
             $table = "<table>";
-            $table .= "<tr><th>ISBN</th><th>Title</th></tr>";
+            $table .= "<tr><th>ISBN</th><th>Title</th><th></th></tr>";
             while($row = $result->fetch_assoc()){
                 $table .= "<tr>";
                 $table .= "<td>" . $row["id_isbn"] . "</td>";

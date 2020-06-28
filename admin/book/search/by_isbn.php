@@ -20,7 +20,7 @@
             $tabla = "<table>";
             $tabla .= "<tr><th>ISBN</th><th>Title</th><th>Dewey Code</th>";
             $tabla .= "<th>Author</th><th>Publisher</th><th>Genre</th>";
-            $tabla .= "<th>Number of copies</th><th>Available copies</th><td class='ed'></td></tr>";
+            $tabla .= "<th>Number of copies</th><th>Available copies</th><th></th></tr>";
             $sql = "SELECT * FROM books WHERE id_isbn = '$isbn';";
             $result = $conn->query($sql);
             if ($result->num_rows > 0){

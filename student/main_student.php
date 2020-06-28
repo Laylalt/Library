@@ -13,7 +13,7 @@
     if(isset($x) && $x == 1){
         head();
         $conn = connect();
-        top_main($conn);
+        top_main_s($conn);
     }else{
         echo "<p>you don't have authorization to acces this page, please <a href='http://localhost/'>log in</a></p> ";
     }

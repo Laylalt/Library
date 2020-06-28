@@ -13,14 +13,18 @@
     if(isset($x) && $x == 1){
         head();
         $conn = connect();
-        $f = "<div>";
-        $f .= "<form action='' method='post' id='form1'><br> ";
-        $f .= "<label for='genre'>Genre:</label><br>";
+        $f = "<div class = 'S'>";
+        $f .= "<form action='' method='post' id='form1'>";
+        $f .= "<label for='genre'>Genre</label>";
         $f .= "<input class = 'S' type=text name='genre'>";
         $f .= "<button  class = 'S' type='submit' form='form1' value='submit' name='sbmt'>Submit</button>";
         $f .= "</form>";
         $f .= "</div>";
         echo $f;
+        $print = "<div class = 'B'><a class = 'B' href='http://localhost/student/search_books/by_author.php'>By author</a></div>";
+        $print .= "<div class = 'B'><a class = 'B' href='http://localhost/student/search_books/by_genre.php'>By genre</a></div>";
+        $print .= "<div class = 'B'><a class = 'B' href='http://localhost/student/search_books/by_title.php'>By Title</a></div>";
+        echo $print;
         $v = sval($conn, $_SESSION["id"]);
         if(isset($_REQUEST["sbmt"])){
             $genre = $_POST["genre"];
@@ -34,7 +38,7 @@
                 $tabla = "<table>";
                 $tabla .= "<tr><th>ISBN</th><th>Title</th><th>Dewey Code</th>";
                 $tabla .= "<th>Author</th><th>Publisher</th><th>Genre</th>";
-                $tabla .= "<th>Available copies</th><td class='ed'></td></tr>";
+                $tabla .= "<th>Available copies</th><th></th></tr>";
                 for($x = 0; $x < count($array_isbn); $x++){
                     $tabla .=  printbook($conn, $array_isbn[$x], $v);
                 }
@@ -42,6 +46,24 @@
                 echo  $tabla;
             }else{
                 echo "<div class = 'W'>No book found with that author</div>";
+            }
+        }else{
+            $sql = "SELECT books.id_isbn FROM books JOIN relationbg ON relationbg.id_isbn = books.id_isbn JOIN genre ON relationbg.id_genre = genre.id_genre WHERE books.copy_number >=1";
+            $result = $conn->query($sql);
+            $array_isbn = array();
+            if($result->num_rows > 0){
+                while($row = $result->fetch_assoc()){
+                    array_push($array_isbn, $row["id_isbn"]);
+                }
+                $tabla = "<table>";
+                $tabla .= "<tr><th>ISBN</th><th>Title</th><th>Dewey Code</th>";
+                $tabla .= "<th>Author</th><th>Publisher</th><th>Genre</th>";
+                $tabla .= "<th>Available copies</th><th></th></tr>";
+                for($x = 0; $x < count($array_isbn); $x++){
+                    $tabla .=  printbook($conn, $array_isbn[$x], $v);
+                }
+                $tabla .= "</table>";
+                echo  $tabla;
             }
         }
     }else{

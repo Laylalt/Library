@@ -14,7 +14,6 @@
         if(isset($x) && $x == 0){
             $conn = connect();
             head();
-            $print = "<p><a href='http://localhost/admin/library_admin.php?acc=3'><--Go back</a></p>";
             echo $print;
             echo "<div class = 'W'>New book added</div>";
             $sql = "SELECT * FROM books ORDER BY id_isbn DESC LIMIT 1";

@@ -22,7 +22,7 @@
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                $tabla = "<div>";
+                $tabla = "<div class = 'F'>";
                 $tabla .= "<form action='mod_user_submit.php' method='post' id='form1'><br> ";
                 $tabla .= "<label for='id'><p>ID:</p></label>";
                 $tabla .= "<input type=text name='id' id='isbn' value=" . $row["id_students"] . " readonly>";

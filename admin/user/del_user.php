@@ -13,7 +13,6 @@
         if(isset($x) && $x == 0){
             $conn = connect();
             head();
-            $print = "<p><a href='http://localhost/admin/library_admin.php?acc=1'><--Go back</a></p>";
             echo $print;
             if(isset($_GET["i"])){
                 $id = $_GET["i"];

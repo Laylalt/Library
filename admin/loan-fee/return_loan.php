@@ -12,22 +12,22 @@
     $x = check();
     if(isset($x) && $x == 0){
         head();
-        echo "<p><a href='http://localhost/admin/library_admin.php?acc=2'><--Go back</a></p>";
         $conn = connect();
-        $tabla = "<div><p>Search</p>";
+        $tabla = "<div class = 'F'>";
         $tabla .= "<form action='' method='post' id='form1'><br> ";
         $tabla .= "<label for='id_students'>Id student:</label>";
         $tabla .= "<input type=text name='id_students'><br>";
         $tabla .= "<label for='id_isbn'>ISBN:</label>";
         $tabla .= "<input type=text name='id_isbn'><br>";
         $tabla .= "</form>";
-        $tabla .= "<button type='submit' form='form1' value='submit' name='sbmt'>Submit</button>";
+        $tabla .= "<button type='submit' form='form1' value='submit' name='sl'>Submit</button>";
         $tabla .= "</div>";
         echo $tabla;
         //get requested values
-        if(isset($_REQUEST["sbmt"])){
+        if(isset($_REQUEST["sl"])){
             $id_students = $_POST["id_students"];
             $id_isbn = $_POST["id_isbn"];
+            echo $id_isbn . $id_students . "WHAT";
             //search 
             $sql = "SELECT id_loan FROM loans WHERE id_students = $id_students AND id_isbn = $id_isbn AND active = 1 ORDER BY date_out DESC LIMIT 1;";
             $result = $conn->query($sql);
@@ -47,6 +47,8 @@
                 echo "<div class = 'W'>Were sorry but we did not find any results with those values, please try again :(</div>";
             }
             $conn->close();
+        }else{
+            echo "error";
         }
     }else{
         echo "<p>you don't have authorization to acces this page, please <a href='http://localhost/'>log in</a></p>";

@@ -18,7 +18,7 @@
         $email = $_SESSION["email"];
         $phone = $_SESSION["phone"];
         $password = $_SESSION["password"];
-        $tabla = "<div>";
+        $tabla = "<div class ='F'>";
         $tabla .= "<form action='mod_profile.php' method='post' id='form1'><br> ";
         $tabla .= "<label for='id'>ID:</label>";
         $tabla .= "<input type=text name='id' value=" . $id . " readonly><br>";
@@ -35,7 +35,7 @@
         $tabla .= "<form action='change_p.php' method='post' id='form2'><br> ";
         $tabla .= "<label for='password'>Password:</label><br>";
         $tabla .= "<input class= 'S' type=password name='password' value =" . $password . " readonly>";
-        $tabla .= "<button class= 'S' type='submit' form='form2' value='submit' name='sbmt'>Change</button>";
+        $tabla .= "<button class= 'Sp' type='submit' form='form2' value='submit' name='sbmt'>Change</button>";
         $tabla .= "</form>";
         $tabla .= "</div>";
         echo $tabla;

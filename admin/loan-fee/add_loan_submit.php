@@ -12,7 +12,6 @@
         $x = check();
         if(isset($x) && $x == 0){
             head();
-            echo "<p><a href='http://localhost/admin/library_admin.php?acc=2'><--Go back</a></p>";
             $conn = connect();
             //set variables to add
             if (isset($_GET["acc"])){
@@ -25,7 +24,7 @@
                 $sql = "INSERT INTO loans(id_students, id_isbn, id_admin_out, date_out, date_sin) VALUES($id_students, $id_isbn, $id_admin_out, '$date_out', '$date_sin');";
                 if($conn->query($sql) === TRUE){
                     echo "<div class = 'W'>New loan added</div>";
-                    $sql = "SELECT id_students, id_isbn, id_admin_out, date_out, date_sin FROM loans WHERE active = 1 ORDER BY date_out DESC LIMIT 1";
+                    $sql = "SELECT id_students, id_isbn, id_admin_out, date_out, date_sin FROM loans WHERE active = 1 AND id_students = $id_students AND id_isbn = $id_isbn AND date_out = '$date_out' LIMIT 1";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         // output data of each row		

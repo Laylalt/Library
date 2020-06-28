@@ -14,12 +14,20 @@
     if(isset($x) && $x == 0){
         head();
         if(isset($_POST["id_students"])){
+            $tabla = "<div class = 'S'>";
+            $tabla .= "<form action='http://localhost/admin/loan-fee/search_rloan.php' method='post' id='form1'>";
+            $tabla .= "<label for='id_students'>ID</label>";
+            $tabla .= "<input class = 'S' type=text name='id_students'>";
+            $tabla .= "<button class = 'S' type='submit' form='form1' value='submit' name='sbmt'>Search</button>";
+            $tabla .= "</form>";
+            $tabla .= "</div>";
+            echo $tabla;
             $id_students = $_POST["id_students"];
             $sql = "SELECT books.id_isbn, books.title, students.id_students, students.first_name, students.last_name, loans.id_loan FROM loans JOIN students ON students.id_students = loans.id_students JOIN books ON books.id_isbn = loans.id_isbn WHERE loans.active = 0 AND loans.id_admin_out = 0 AND loans.id_students = $id_students;";
             $result = $conn->query($sql);
             if($result->num_rows > 0){
-                $table = "<table>";
-                $table .= "<tr><th>ID</th><th>Name</th><th>ISBN</th><th>Title</th></tr>";
+                $table = "<table class = 'S'>";
+                $table .= "<tr><th>ID</th><th>Name</th><th>ISBN</th><th>Title</th><th></th></tr>";
                 while($row = $result->fetch_assoc()){
                     $table .= "<tr>";
                     $table .= "<td>" . $row["id_students"] ."</td>";
@@ -32,7 +40,24 @@
                 $table .= "</table>";
                 echo $table;     
             }else{
-                echo "<div class = 'W'>This user has not requested a book yet</div>";
+                echo "<div class = 'Ws'>This user has not requested a book yet</div>";
+                $sql = "SELECT books.id_isbn, books.title, students.id_students, students.first_name, students.last_name, loans.id_loan FROM loans JOIN students ON students.id_students = loans.id_students JOIN books ON books.id_isbn = loans.id_isbn WHERE loans.active = 0 AND loans.id_admin_out = 0;";
+                $result = $conn->query($sql);
+                if($result->num_rows > 0){
+                    $table = "<table>";
+                    $table .= "<tr><th>ID</th><th>Name</th><th>ISBN</th><th>Title</th><th></th></tr>";
+                    while($row = $result->fetch_assoc()){
+                        $table .= "<tr>";
+                        $table .= "<td>" . $row["id_students"] ."</td>";
+                        $table .= "<td>" . $row["first_name"] . " " . $row["last_name"] . "</td>";
+                        $table .= "<td>" . $row["id_isbn"] ."</td>";
+                        $table .= "<td>" . $row["title"] ."</td>";
+                        $table .= "<td><a href='http://localhost/admin/loan-fee/add_rloan.php?i=" . $row["id_loan"] . "'>Complete</a></td>";
+                        $table .= "</tr>";
+                    }
+                    $table .= "</table>";
+                    echo $table;     
+                }
             }
         }else{
             echo "what are you doing here?";

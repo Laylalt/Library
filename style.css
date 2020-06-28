@@ -1,27 +1,64 @@
-table {
-  width: 100%;
-  border-color: black;
+/*top tables*/
+div.top{
+  margin-top: 50px ;
+  margin-left: 70px;
+}
+table.top{
+  display: inline-block;
+  
+}
+
+td.top{
+  background-color: #f2f2f2;
+  text-align: left;
+  padding-left: 0;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+#books{
+  margin-left: 200px;
 }
   
-th, td {
+
+/*tables*/
+table {
+  margin: auto;
+  border-collapse: collapse;
+}
+
+td {
   text-align: center;
+  padding: 30px;
+  width: 104px;
 }
 
 th{
+  font-weight: bold;
   background-color: cornflowerblue;
   text-decoration: none;
+  padding: 30px;
 }
 
-tr{
-  background-color: white;
-  text-align: center;
- 
+tr:nth-child(odd) {
+  background-color:rgb(202, 202, 202);
 }
 
-
-.ed{
+tr:nth-child(even) {
   background-color: white;
 }
+/*Forms*/
+
+div.F {
+  margin: 100px auto;
+  width: 400px;
+  border: 1px solid #f8f8f8;
+  border-radius: 1.25em;
+  padding: 1.25em; 
+  background-color: rgb(199, 199, 199);
+  
+}
+
 
 input[type=password], select {
   width: 100%;
@@ -42,16 +79,6 @@ input[type=text], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
-
-input[type=text].S{
-  width: 70%;
-  display: inline-flex;
-}
-
-input[type=password].S{
-  width: 70%;
-  display: inline-flex;
-}
   
   
 button[type=submit] {
@@ -68,12 +95,6 @@ button[type=submit] {
 button[type=submit]:hover {
   border: 1px solid #ccc;
 }
-  
-button[type=submit].S{
-  width: 10%;
-  display: inline-flex;
-  margin-left: 20px;
-}
 
 button[type=button]{
   background-color: cadetblue ;
@@ -86,12 +107,163 @@ button[type=button]{
 
 }
 
-div {
-  border-radius: 5px;
-  background-color: rgb(199, 199, 199);
-  padding: 20px;
+/*Edit profile button*/
+#edit_profile{
+  position:absolute;
+  top: 200px;
+  right: 20px;
+  width: 10%;
+
 }
 
+.HW{
+  color: red;
+  text-align: center;
+}
+ 
+/*Forms of search */
+input[type=text].S{
+  width: 50%;
+  display: inline-flex;
+}
+
+input[type=password].S{
+  width: 70%;
+  display: inline-flex;
+}
+
+button[type=submit].S{
+  display: inline-flex;
+  font-weight: bold;
+  width: 7%;
+  font-size: 15px;
+}
+
+div.S{
+  position:absolute;
+  top: 185px;
+  width: 100%;
+  background-color: rgb(199, 199, 199);
+  margin-bottom: 50px;
+}
+
+div.Ws{
+  margin: 100px 200px 50px;
+  padding: 1.75em 1.25em;
+  border: solid black 1px;
+  background-color: rgb(202, 202, 202);
+  text-align: center;
+}
+
+table.S{
+  margin-top: 100px;
+}
+
+/*button for submit password in see profile*/
+button[type=submit].Sp{
+  display: inline-flex;
+  font-weight: bold;
+  width: 30%;
+  font-size: 15px;
+}
+
+/*warning divs*/
+
+div.W{
+  padding: 1.75em;
+  margin: 0px 300px 20px;
+  border: solid black 1px;
+  background-color: rgb(202, 202, 202);
+  text-align: center;
+}
+
+/*class div box */
+div.Bs{
+  margin-left: 30px;
+}
+a.B{
+  text-decoration: none;
+  color: black;
+}
+div.B{
+  display: inline-block;
+  background-color: white;
+  border-left:solid black 5px;
+  width: 100px;
+  padding: 1.25em;
+  margin-left: 20px;
+}
+
+div.B:hover{
+  background-color: rgba(255, 255, 255, 0.897);
+  padding: 1.50em;
+}
+
+/*add buttons of books and users in admin*/
+div.add{
+  position:absolute;
+  top: 270px;
+  right: 50px;    
+  width: 10%;
+  background-color: rgb(20, 20, 41);
+  text-align: center;
+  padding: 15px 5px;
+  border-radius: 1em;
+}
+
+div.add:hover{
+  padding: 20px 10px;
+}
+
+a.add{
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+table.addU{
+  margin-top: 150px;
+}
+
+/*books page of students*/
+/*class div box */
+div.Bs{ 
+  margin-left: 30px;
+}
+a.B{
+  text-decoration: none;
+  color: black;
+}
+div.B{
+  display: inline-block;
+  background-color: white;
+  border-left:solid black 5px;
+  width: 100px;
+  padding: 1.25em;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom:  10px;
+}
+
+div.B:hover{
+  background-color: rgba(255, 255, 255, 0.897);
+  padding: 1.50em;
+}
+
+table.BS{ /*table of books in students menu*/
+margin-top: 20px;
+}
+/*Personal active loans and fees in admin*/
+div.Bsi{
+  margin-left: 80px;
+  margin-bottom: 80px;
+}
+
+table.Bsi{
+  margin-left: 80px;
+}
+/*Header*/
 
 div.H{
   background-color: rgb(20, 20, 41);
@@ -99,23 +271,50 @@ div.H{
   color: white;
   border-radius: 0px;
   padding-right: 0;
+  height: 190px;
+  margin-bottom: 50px;
+  
   
 }
+
+.H{
+  margin: 0;
+}
+
 a.H{
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  
+}
+
+a.H:hover{
+  background-color: slategrey;
+}
+
+.Hi{
+  font-size:  50px;
+  position:absolute; 
+  right: 10px;
+  top: 20px;
   color: white;
   text-decoration: none;
 }
 
-a{
-  text-decoration: none;
+.Hi:hover{
+  background-color: slategrey;
 }
 
-a.H:hover{
-  background-color: darkslategray;
+h4{
+  position: absolute;
+  top: 130px;
+  font-weight: normal;
+  font-size: 1.20em;
 }
-
-span{
-  position:absolute; 
+/*Log off header*/
+span{ 
+  position: absolute;
+  top: 150px;
   right: 10px;
   font-size:  20px;
   margin: 0;
@@ -123,16 +322,10 @@ span{
   
 }
 
-#edit_profile{
-  position:absolute;
-  top: 230px;
-  right: 20px;
-  width: 10%;
-
-}
-
+/*General*/
 body{
   background-color: #f2f2f2;
+  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 }
 

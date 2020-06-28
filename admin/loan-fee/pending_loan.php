@@ -13,21 +13,20 @@
     if(isset($x) && $x == 0){
         head();
         $conn = connect();
-        echo "<p><a href='http://localhost/admin/main_admin.php'><--Go back</a></p>";
-        $tabla = "<div>";
-        $tabla .= "<form action='http://localhost/admin/loan-fee/search_rloan.php' method='post' id='form1'><br> ";
-        $tabla .= "<label for='id_students'>id Student:</label>";
-        $tabla .= "<input type=text name='id_students'><br>";
+        $tabla = "<div class = 'S'>";
+        $tabla .= "<form action='http://localhost/admin/loan-fee/search_rloan.php' method='post' id='form1'>";
+        $tabla .= "<label for='id_students'>ID</label>";
+        $tabla .= "<input class = 'S' type=text name='id_students'>";
+        $tabla .= "<button class = 'S' type='submit' form='form1' value='submit' name='sbmt'>Search</button>";
         $tabla .= "</form>";
-        $tabla .= "<button type='submit' form='form1' value='submit' name='sbmt'>Submit</button>";
         $tabla .= "</div>";
         echo $tabla;
         //all of 'em
         $sql = "SELECT books.id_isbn, books.title, students.id_students, students.first_name, students.last_name, loans.id_loan FROM loans JOIN students ON students.id_students = loans.id_students JOIN books ON books.id_isbn = loans.id_isbn WHERE loans.active = 0 AND loans.id_admin_out = 0;";
         $result = $conn->query($sql);
         if($result->num_rows > 0){
-            $table = "<table>";
-            $table .= "<tr><th>ID</th><th>Name</th><th>ISBN</th><th>Title</th></tr>";
+            $table = "<table class = 'S'>";
+            $table .= "<tr><th>ID</th><th>Name</th><th>ISBN</th><th>Title</th><th></th></tr>";
             while($row = $result->fetch_assoc()){
                 $table .= "<tr>";
                 $table .= "<td>" . $row["id_students"] ."</td>";
@@ -40,7 +39,7 @@
             $table .= "</table>";
             echo $table;     
         }else{
-            echo "<div class = 'W'>No user has requested a book yet</div>";
+            echo "<div class = 'Ws'>No user has requested a book yet</div>";
         }
     }else{
         echo "<p>you don't have authorization to acces this page, please <a href='http://localhost/'>log in</a></p>";

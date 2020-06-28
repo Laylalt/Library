@@ -15,9 +15,8 @@ require_once('../../func.php');
     if (isset($_GET["acc"])){
         $conn = connect();
         $isbn = $_GET["acc"];
-        $print = "<p><a href='http://localhost/admin/library_admin.php?acc=3'><--Go back</a></p>";
         echo $print;
-        $tabla = "<div>";
+        $tabla = "<div class = 'F'>";
         $tabla .= "<form action='' method='post' id='form2'><br> ";
         $tabla .= "<label for='author'>Author(s):</label><br>";
         $tabla .= "<input class = 'S' type=text name='author'>";

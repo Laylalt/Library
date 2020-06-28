@@ -41,31 +41,30 @@
             if($_SESSION["type"] == 0){
                 $_SESSION["fees"] = check4fees($conn);
                 $rbooks = ar_books($conn);
-                $print .= "<h2><a class='H' href='http://localhost/admin/main_admin.php'>HOME ADMIN</a></h2>";
-                $print .= "<p class='H'><h2><a class='H' href='http://localhost/profile/see_profile.php'>Hi " . $_SESSION["first_name"] . "!</a></h2></p>";
-                $print .= "<h4>Loans: <a class='H' href='http://localhost/admin/loan-fee/add_loan.php'>Add   </a>";
-                $print .="<a class='H' href='http://localhost/admin/loan-fee/pending_loan.php'>| Requested books(" . $rbooks . ")   </a>";
-                $print .= "<a class='H' href='http://localhost/admin/loan-fee/return_loan.php'>| Return   </a>";
-                $print .= "<a class='H' href='http://localhost/admin/library_admin.php?acc=2'>| Active  |</a><br><br>";
-                $print .= "<a class='H' href='http://localhost/admin/library_admin.php?acc=4'> Fees(" . $_SESSION["fees"] . ") |</a>";
-                $print .= "<a class='H' href='http://localhost/admin/library_admin.php?acc=1'> Users  |</a>";
-                $print .= "<a class='H' href='http://localhost/admin/library_admin.php?acc=3'> Books  |</a>";
-                $print .= "<span><a class='H' href='http://localhost/func.php?acc=0'>|  Log Off  |</a></h4></span>";
+                $print .= "<a href='http://localhost/admin/main_admin.php'><img src='/img/logo.png'   height='150px'></a>";
+                $print .= "<a class='Hi' href='http://localhost/profile/see_profile.php'>Hi " . $_SESSION["first_name"] . "!</a>";
+                $print .= "<h4><a class='H' href='http://localhost/admin/loan-fee/add_loan.php'>Add Loan</a>";
+                $print .= "<a class='H' href='http://localhost/admin/library_admin.php?acc=2'>Active Loans</a>";
+                $print .="<a class='H' href='http://localhost/admin/loan-fee/pending_loan.php'>Requested books (" . $rbooks . ")</a>";
+                $print .= "<a class='H' href='http://localhost/admin/library_admin.php?acc=4'>Fees (" . $_SESSION["fees"] . ")</a>";
+                $print .= "<a class='H' href='http://localhost/admin/library_admin.php?acc=1'>Users</a>";
+                $print .= "<a class='H' href='http://localhost/admin/library_admin.php?acc=3'>Books</a></h4>";
+                $print .= "<span><a class='H' href='http://localhost/func.php?acc=0'>Log Off</a></span>";
                 $print .= "</div>";
                 
             }else if($_SESSION["type"] == 1){
                 $aloans =  sa_loans($conn);
                 $afees = sa_fees($conn);
                 $rbooks = sr_books($conn);
-                $print .= "<h2><a class='H' href='http://localhost/student/main_student.php'>HOME STUDENTS</a></h2>";
-                $print .= "<p class='H'><h2><a class='H' href='http://localhost/profile/see_profile.php'>Hi " . $_SESSION["first_name"] . "!</a></h2></p>";
-                $print .= "<h4><a class='H' href='http://localhost/student/library_student.php?acc=1'>History of loans </a>";
-                $print .= "<a class='H' href='http://localhost/student/library_student.php?acc=2'>| History of fees  |  </a>";
-                $print .= "<a class='H' href='http://localhost/student/library_student.php?acc=4'>Active Loans(" . $aloans . ")  </a>";
-                $print .= "<a class='H' href='http://localhost/student/library_student.php?acc=5'>| Active Fees(" .  $afees . ")  |</a>";
-                $print .= "<a class='H' href='http://localhost/student/library_student.php?acc=3'> Books  |</a>";
-                $print .= "<a class='H' href='http://localhost/student/library_student.php?acc=6'> Requested Books(" . $rbooks . ")  |</a>";
-                $print .= "<span><a class='H' href='http://localhost/func.php?acc=0'>|  Log Off  |</a></h4></span>";
+                $print .= "<a href='http://localhost/student/main_student.php'><img src='/img/logo.png'   height='150px'></a>";
+                $print .= "<a class='Hi' href='http://localhost/profile/see_profile.php'>Hi " . $_SESSION["first_name"] . "!</a>";
+                $print .= "<h4><a class='H' href='http://localhost/student/library_student.php?acc=3'>Books</a>";
+                $print .= "<a class='H' href='http://localhost/student/library_student.php?acc=6'>Requested Books (" . $rbooks . ")</a>";
+                $print .= "<a class='H' href='http://localhost/student/library_student.php?acc=4'>Active Loans (" . $aloans . ")</a>";
+                $print .= "<a class='H' href='http://localhost/student/library_student.php?acc=5'>Active Fees (" .  $afees . ")</a>";
+                $print .= "<a class='H' href='http://localhost/student/library_student.php?acc=1'>History of loans</a>";
+                $print .= "<a class='H' href='http://localhost/student/library_student.php?acc=2'>History of fees</a></h4>";
+                $print .= "<span><a class='H' href='http://localhost/func.php?acc=0'>Log Off</a></span>";
                 $print .= "</div>";
             }
             echo $print;
@@ -204,9 +203,11 @@
             $tabla .= "<td>" . $publisher . "</td>";
             $tabla .= "<td>" . $genre . "</td>";
             if($availability >= 2){
-                $tabla .= "<td>" . $availability . "</td>";
                 if($v == 1){
+                    $tabla .= "<td>" . $availability . "</td>";
                     $tabla .= "<td><a href='http://localhost/student/s_add_loan.php?i=" . $id . "'>Select</a></td>";
+                }else{
+                    $tabla .= "<td colspan = '2'>" . $availability . "</td>";
                 }
             }else{
                 $tabla .= "<td>No copies available at the moment</td>";
@@ -263,7 +264,7 @@
                         return 0;
                     }
                 }else{
-                    //check how many borrowed books
+                    //check if it has a borrowed book and a request
                     $sql = "SELECT id_loan FROM loans WHERE id_students = $id AND active = 0 AND id_admin_out = 0;";
                     $result = $conn->query($sql);    
                     if($result->num_rows <= 1){
@@ -319,7 +320,7 @@
         }
     }
 
-    function top_main($conn){
+    function top_main_s($conn){
         //array of id_students--------------------------------------------------------------------------
         $a_id = array();
         $sql = "SELECT id_students FROM students WHERE type = 1;";
@@ -359,9 +360,8 @@
             array_push($a_order, $holder);
         }
         //$a_order has ordered top students, printing
-        $print = "<div><h3>TOP 5 STUDENTS</h3></div>";
-        $print .= "<table>";
-        $print .= "<tr><th>ID</th><th>Name</th><th>#Loans</th></tr>";
+        $print = "<div class = 'top'><table class = 'top'><tr><td class = 'top' colspan='3'>Top 5 Students</td></tr>";
+        $print .= "<tr><th>ID</th><th>Name</th><th>Loans</th></tr>";
         for($x = 0; $x < 5  ; $x++){
             $string = explode("-", $a_order[$x]);
             if($string[0] != 0){
@@ -420,9 +420,8 @@
             array_push($a_order, $holder);
         }
         //$a_order has ordered top book, printing
-        $print .= "<div><h3>TOP 5 BOOKS</h3></div>";
-        $print .= "<table>";
-        $print .= "<tr><th>ISBN</th><th>Title</th><th>#Loans</th></tr>";
+        $print .= "<table class = 'top' id = 'books'><tr><td colspan='3' class = 'top'>Top Five books</td></tr>";
+        $print .= "<tr><th>ISBN</th><th>Title</th><th>Loans</th></tr>";
         for($x = 0; $x < 5  ; $x++){
             $string = explode("-", $a_order[$x]);
             if($string[0] != 0){
@@ -441,10 +440,135 @@
             }
             
         }
-        $print .= "</table>";
+        $print .= "</table></div>";
         echo $print;
         
 
     }
     
+    function top_main_a($conn){
+        //array of id_students--------------------------------------------------------------------------
+        $a_id = array();
+        $sql = "SELECT id_students FROM students WHERE type = 1;";
+        $result = $conn->query($sql);
+        while($row = $result->fetch_assoc()){
+            array_push($a_id, $row["id_students"]);
+        }
+        //see number of loans of every student
+        $a_id_c = array();
+        $count_loans = 0;
+        for($x = 0; $x < count($a_id); $x++){
+            $sql = "SELECT id_loan FROM loans WHERE id_students = $a_id[$x];";
+            $result = $conn->query($sql);
+            while($row = $result->fetch_assoc()){
+                $count_loans = $count_loans + 1;
+            }
+            $r = $a_id[$x] . "-" . $count_loans;
+            array_push($a_id_c, $r);
+            $count_loans = 0;
+        }
+        //order from max to min in an array
+        $a_order = array();
+        for($x = 0; $x < count($a_id) ; $x++){
+            $max = 0;
+            $holder = 0 . "-" . 0;
+            $f = count($a_id_c);
+            for($i = 0; $i < $f; $i++){
+                $n_loans = explode("-", $a_id_c[$i]);
+                $compare = $n_loans[1];
+                if($compare > $max){
+                    $max = $compare;
+                    $holder = $a_id_c[$i];
+                }
+            }
+            $key = array_search($holder, $a_id_c);
+            $a_id_c[$key] = 0 . "-" . 0;
+            array_push($a_order, $holder);
+        }
+        //$a_order has ordered top students, printing
+        $print = "<div class = 'border'><table class = 'top'><tr><td class = 'top' colspan='3'>Top 5 Students</td></tr>";
+        $print .= "<tr><th>ID</th><th>Name</th><th>Loans</th></tr>";
+        for($x = 0; $x < 5  ; $x++){
+            $string = explode("-", $a_order[$x]);
+            if($string[0] != 0){
+                $id_students = $string[0];
+                $n_loans = $string[1];
+                $sql = "SELECT first_name, last_name FROM students WHERE id_students = $id_students;";
+                $result = $conn->query($sql);
+                while($row = $result->fetch_assoc()){
+                    $print .= "<tr>";
+                    $print .= "<td>" . $id_students . "</td>";
+                    $print .= "<td>" . $row["first_name"] . " " . $row["last_name"]  . "</td>";
+                    $print .= "<td>" . $n_loans . "</td>";
+                    $print .= "</tr>";
+                }
+
+            }
+            
+        }
+        $print .= "</table>";
+        //array of id_boooks--------------------------------------------------------------------------
+        $a_isbn = array();
+        $sql = "SELECT id_isbn FROM books;";
+        $result = $conn->query($sql);
+        while($row = $result->fetch_assoc()){
+            array_push($a_isbn, $row["id_isbn"]);
+        }
+        //see number of loans of every book
+        $a_id_c = array();
+        $count_loans = 0;
+        for($x = 0; $x < count($a_isbn); $x++){
+            $sql = "SELECT id_isbn FROM loans WHERE id_isbn = $a_isbn[$x];";
+            $result = $conn->query($sql);
+            while($row = $result->fetch_assoc()){
+                $count_loans = $count_loans + 1;
+            }
+            $r = $a_isbn[$x] . "-" . $count_loans;
+            array_push($a_id_c, $r);
+            $count_loans = 0;
+        }
+        //order from max to min in an array
+        $a_order = array();
+        for($x = 0; $x < count($a_isbn) ; $x++){
+            $max = 0;
+            $holder = 0 . "-" . 0;
+            $f = count($a_id_c);
+            for($i = 0; $i < $f; $i++){
+                $n_loans = explode("-", $a_id_c[$i]);
+                $compare = $n_loans[1];
+                if($compare > $max){
+                    $max = $compare;
+                    $holder = $a_id_c[$i];
+                }
+            }
+            $key = array_search($holder, $a_id_c);
+            $a_id_c[$key] = 0 . "-" . 0;
+            array_push($a_order, $holder);
+        }
+        //$a_order has ordered top book, printing
+        $print .= "<table class = 'top' id = 'books'><tr><td colspan='3' class = 'top'>Top Five books</td></tr>";
+        $print .= "<tr><th>ISBN</th><th>Title</th><th>Loans</th></tr>";
+        for($x = 0; $x < 5  ; $x++){
+            $string = explode("-", $a_order[$x]);
+            if($string[0] != 0){
+                $id_isbn = $string[0];
+                $n_loans = $string[1];
+                $sql = "SELECT title FROM books WHERE id_isbn = $id_isbn;";
+                $result = $conn->query($sql);
+                while($row = $result->fetch_assoc()){
+                    $print .= "<tr>";
+                    $print .= "<td>" . $id_isbn . "</td>";
+                    $print .= "<td>" . $row["title"]  . "</td>";
+                    $print .= "<td>" . $n_loans . "</td>";
+                    $print .= "</tr>";
+                }
+
+            }
+            
+        }
+        $print .= "</table></div>";
+        echo $print;
+        
+
+    }
     
