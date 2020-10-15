@@ -48,7 +48,7 @@ The website will be different depending if you are an employee or an user.
   
   -Borrow books for themselves 
   
- ** Restrictions (Apply for both employees and users): **
+ **Restrictions (Apply for both employees and users):**
  
   -You cannot borrow more than two books at a time
   
