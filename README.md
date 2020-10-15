@@ -2,7 +2,7 @@
 
 This is a mock-up of a public library website. If you don't want to do the installation you can find screenshots in the screenshots folder.
 
-## TO USE: 
+## To use: 
 
 Since it uses a database and it's not a website yet to be able to acces it you need to follow this steps: 
 1. Install XAMPP
@@ -10,7 +10,7 @@ Since it uses a database and it's not a website yet to be able to acces it you n
 3. Add the folder library to xampp>mysql>data 
 4. Now using the XAMPP control panel you can access the database and the website by starting Apache and MySQL and then click on admin for both
 
-## ABOUT:
+## About:
 
 The website will be different depending if you are an employee or an user.
 
