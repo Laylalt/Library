@@ -1,6 +1,6 @@
 # Library
 
-This is a mock-up of a public library website. If you don't want to do the installation you can find screenshots in the screenshots folder.
+This is a mock-up of a public library website. If you don't want to do the installation you can find videos in the videos folder.
 
 ## To use: 
 
